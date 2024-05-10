@@ -1,0 +1,15 @@
+main h1 {
+    font-size: 4em;
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+#quicklinks {
+    position: fixed;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+}
+#quicklinks a {
+    margin-top: 15px;
+}
