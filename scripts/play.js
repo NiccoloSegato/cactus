@@ -5,6 +5,9 @@ var cards = [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5
 var player = [];
 var opponent = [];
 
+// Main button reference
+var button;
+
 /**
  * Function to shuffle the deck of cards
  */
@@ -40,6 +43,34 @@ function showTwoCards() {
     var card2 = document.getElementById("player-card-2");
     card2.innerHTML = player[1];
     card2.style.backgroundImage = "none";
+
+    // Change the button text
+    button.innerHTML = "Iniziamo!";
+    button.addEventListener("click", startFirstRound);
+}
+
+function hideTwoCards() {
+    // Hide the first two cards to the player
+    var card1 = document.getElementById("player-card-1");
+    card1.innerHTML = "";
+    card1.style.backgroundImage = "url('assets/images/card-back.png')";
+
+    var card2 = document.getElementById("player-card-2");
+    card2.innerHTML = "";
+    card2.style.backgroundImage = "url('assets/images/card-back.png')";
+
+}
+
+/**
+ * Ask the player the confirmation to start the first round
+ */
+function startFirstRound() {
+    // Ask the player the confirmation to hide the cards
+    if(confirm("Sei pronto a giocare?")) {
+        // Hide the first two cards
+        hideTwoCards();
+        playerRound();
+    }
 }
 
 /**
@@ -59,9 +90,26 @@ function play() {
     console.log("Opponent: " + opponent);
 }
 
+function playerRound() {
+    // Change the button text
+    button.innerHTML = "Pesca";
+    button.addEventListener("click", drawCard);
+}
+
+function opponentRound() {
+}
+
+function drawCard() {
+
+}
+
 /**
  * Check if the page is loaded
  */
 document.addEventListener("DOMContentLoaded", function() {
-    play();
+    // Get the main button
+    button = document.getElementById("mainbtn");
+    
+    // Add the event listener
+    button.addEventListener("click", play);
 });
