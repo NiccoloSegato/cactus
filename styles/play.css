@@ -40,9 +40,15 @@ main {
 #field-center {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+#field-center-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 33%;
 }
 #deck {
     max-width: 100px;
@@ -53,7 +59,7 @@ main {
 #deck img {
     width: 100%;
 }
-#table {
+#table, #draw {
     width: 100%;
     max-width: 100px;
     max-height: 141px;
@@ -85,4 +91,10 @@ main {
     align-self: flex-end;
     background-color: white;
     border-radius: 10px;
+}
+
+.card-front {
+    font-size: 5vw;
+    font-weight: bold;
+    text-align: center;
 }
