@@ -4,13 +4,8 @@
 }
 body {
     margin: 0;
-    background-color: rgb(224, 224, 224);
+    background-color: bisque;
     font-family: Montserrat, sans-serif;
-}
-main {
-    width: 90%;
-    margin: 0 auto;
-    max-width: 700px;
 }
 
 /* PRIMARY BUTTON */
