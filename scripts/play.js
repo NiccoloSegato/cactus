@@ -127,6 +127,10 @@ function opponentRound() {
         var table = document.getElementById("table");
         table.innerHTML = highest;
 
+        setTimeout(() => {
+            askPlayerDiscard();
+        }, 1000);
+
         // TODO: Remove before the final version
         console.log("Opponent swapped " + highest + " with " + card);
     } else {
@@ -136,14 +140,83 @@ function opponentRound() {
 
         // TODO: Remove before the final version
         console.log("Opponent not swapped and discarded " + card);
+
+        setTimeout(() => {
+            askPlayerDiscard();
+        }, 1000);
     }
 
     // TODO: Implement the check for win
     
     // TODO: Remove before the final version
     console.log(opponent);
-    // Start player round
-    playerRound();
+}
+
+/**
+ * Function executed when the opponent's round is finished. Ask the player if he wants to discard a card on top of the opponent's discarded card
+ */
+function askPlayerDiscard() {
+    if(confirm("Vuoi scartare una tua carta?")) {
+        // Apply the action to every card
+        var cardsToRemove = document.getElementsByClassName("player-cards");
+        for(var i = 0; i < cardsToRemove.length; i++) {
+            cardsToRemove[i].addEventListener("click", discardInOpponentTurn);
+        }
+    }
+    else {
+        // Enable the button and change the opacity
+        button.disabled = false;
+        button.style.opacity = 1;
+        button.style.cursor = "pointer";
+
+        // Start player round
+        playerRound();
+    }
+}
+
+function discardInOpponentTurn(event) {
+    // Remove the event listener from all the cards
+    var cardsToRemove = document.getElementsByClassName("player-cards");
+    for(var i = 0; i < cardsToRemove.length; i++) {
+        cardsToRemove[i].removeEventListener("click", discardInOpponentTurn);
+    }
+
+    // Get the card to discard
+    var card = event.currentTarget.id;
+    // Get last character
+    card = card.charAt(card.length - 1);
+    var swapIndex = parseInt(card) - 1;
+
+    // Show the player selected card
+    var card1 = document.getElementById("player-card-" + (swapIndex + 1));
+    card1.innerHTML = player[swapIndex];
+    card1.style.backgroundImage = "none";
+
+    // Wait a second before checking if discard the card
+    setTimeout(() => {
+        // Check if the card value is the same as the discarded card
+        if(player[swapIndex] == document.getElementById("table").innerHTML) {
+            // Discard the card
+            player.slice(swapIndex, 1);
+            
+            // Remove the discarded card from the player's cards
+            card1.remove();
+
+            // Start player round
+            button.disabled = false;
+            button.style.opacity = 1;
+            button.style.cursor = "pointer";
+            playerRound();
+        }
+        else {
+            // TODO: Impelement the error in the discard
+            // Enable the button and change the opacity
+            button.disabled = false;
+            button.style.opacity = 1;
+            button.style.cursor = "pointer";
+            playerRound();
+        }
+    }, 1000);
 }
 
 function setOpponentDelay() {
@@ -156,11 +229,6 @@ function setOpponentDelay() {
 
     // Set the delay for the opponent round
     setTimeout(() => {
-        // Enable the button and change the opacity
-        button.disabled = false;
-        button.style.opacity = 1;
-        button.style.cursor = "pointer";
-
         opponentRound();
     }, 2000);
 }
@@ -178,22 +246,14 @@ function drawCard() {
     var draw = document.getElementById("draw");
     draw.innerHTML = card;
 
-    // Add the event listener to the cards
-    var card1 = document.getElementById("player-card-1");
-    card1.persPosition = 0;
-    card1.addEventListener("click", checkSwap);
+    // Retrieve all the player cards
+    var cardsToRemove = document.getElementsByClassName("player-cards");
 
-    var card2 = document.getElementById("player-card-2");
-    card2.persPosition = 1;
-    card2.addEventListener("click", checkSwap);
-
-    var card3 = document.getElementById("player-card-3");
-    card3.persPosition = 2;
-    card3.addEventListener("click", checkSwap);
-
-    var card4 = document.getElementById("player-card-4");
-    card4.persPosition = 3;
-    card4.addEventListener("click", checkSwap);
+    // Add the event listener to all the cards
+    for(var i = 0; i < cardsToRemove.length; i++) {
+        cardsToRemove[i].addEventListener("click", checkSwap);
+        cardsToRemove[i].persPosition = i;
+    }
 
     // Change the button text 
     button.innerHTML = "Scarta";
@@ -205,6 +265,12 @@ function drawCard() {
  * Function to discard the drew card
  */
 function discardCard() {
+    // Remove event listener from all the cards
+    var cardsToRemove = document.getElementsByClassName("player-cards");
+    for(var i = 0; i < cardsToRemove.length; i++) {
+        cardsToRemove[i].removeEventListener("click", checkSwap);
+    }
+
     // TODO: Remove before the final version
     console.log(cards);
 
@@ -226,7 +292,7 @@ function discardCard() {
  */
 function checkSwap(event) {
     // Get the card
-    var drewCard = document.getElementById("draw").innerHTML;
+    var drewCard = document.getElementById("draw");
     // Get the card to swap
     var card = event.currentTarget.persPosition;
     
@@ -235,9 +301,32 @@ function checkSwap(event) {
     card1.innerHTML = player[card];
     card1.style.backgroundImage = "none";
 
-    if(player[card] == drewCard) {
-        // Swap the cards both visually and in the array
-    }
+    // Wait one second before swapping the card
+    setTimeout(() => {
+        var toDiscard = player[card];
+        // Swap the card
+        player[card] = parseInt(drewCard.innerHTML);
+        // Hide the card
+        card1.innerHTML = "";
+        card1.style.backgroundImage = "url('assets/images/card-back.png')";
+
+        // Discard the swapped card
+        var table = document.getElementById("table");
+        table.innerHTML = toDiscard;
+
+        drewCard.innerHTML = "";
+
+        // Remove the event listener from all the cards
+        var cardsToRemove = document.getElementsByClassName("player-cards");
+        for(var i = 0; i < cardsToRemove.length; i++) {
+            cardsToRemove[i].removeEventListener("click", checkSwap);
+        }
+        document.getElementById("mainbtn").removeEventListener("click", discardCard);
+
+        // Start the opponent round
+        setOpponentDelay();
+
+    }, 1000);
 }
 
 /**
