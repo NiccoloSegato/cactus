@@ -9,6 +9,14 @@ var opponent = [];
 var button;
 
 /**
+ * Boolean to check if the player has called cactus
+ * False if the player hasn't called cactus, true otherwise
+ * @type {boolean}
+ * @default false
+ */
+let isCactus = false;
+
+/**
  * Function to shuffle the deck of cards
  */
 function shuffle() {
@@ -133,6 +141,9 @@ function opponentRound() {
         var table = document.getElementById("table");
         table.innerHTML = highest;
 
+        // Check if the opponent has a good chance to win
+        opponentCactusCallCheck();
+
         setTimeout(() => {
             askPlayerDiscard();
         }, 1000);
@@ -146,6 +157,9 @@ function opponentRound() {
 
         // TODO: Remove before the final version
         console.log("Opponent not swapped and discarded " + card);
+
+        // Check if the opponent has a good chance to win
+        opponentCactusCallCheck();
 
         setTimeout(() => {
             askPlayerDiscard();
@@ -176,7 +190,13 @@ function askPlayerDiscard() {
         button.style.cursor = "pointer";
 
         // Start player round
-        playerRound();
+        if(isCactus) {
+            checkWinner();
+            return;
+        }
+        else {
+            playerRound();
+        }
     }
 }
 
@@ -286,8 +306,11 @@ function opponentDiscardInPlayerTurn() {
 }
 
 function setOpponentDelay() {
-    // Hide the Cactus button
-    document.getElementById("cactusbtn").style.display = "none";
+    if(!isCactus) {
+        // Hide the Cactus button
+        document.getElementById("cactusbtn").style.display = "none";
+    }
+
     // Change the button text
     button.innerHTML = "Turno avversario...";
     // Disable the button and change the opacity
@@ -401,6 +424,83 @@ function checkSwap(event) {
         setOpponentDelay();
 
     }, 1000);
+}
+
+/**
+ * Function to check if the opponent has good chances to win
+ * If the opponent has a good chance to win, it will call the cactus function
+ */
+function opponentCactusCallCheck() {
+    // Generating a random number between 2 and 5
+    var random = Math.floor(Math.random() * 4) + 2;
+
+    // Check the opponent's cards
+    var opponentSum = opponent.reduce((a, b) => a + b, 0);
+
+    // TODO: Remove before production
+    console.log("Random number: " + random + " - Opponent sum: " + opponentSum);
+
+    // If the opponent's sum is lower than the random number, call the cactus function
+    if(opponentSum < random) {
+        playerCactus();
+    }
+}
+
+/**
+ * Function called when the opponent algorithm called a cactus
+ * It will start the last round of the game
+ */
+function opponentCactus() {
+    isCactus = true;
+
+    // Disable the cactus button and change the opacity
+    let cactusbtn = document.getElementById("cactusbtn");
+    cactusbtn.disabled = true;
+    cactusbtn.style.opacity = 0.5;
+    cactusbtn.style.cursor = "not-allowed";
+    cactusbtn.innerHTML = "CACTUS! per l'avversario";
+    
+    // Start the last round
+    playerRound();
+}
+
+/**
+ * Function called when the user click the cactus button
+ * It start the last round of the game
+ */
+function playerCactus() {
+    isCactus = true;
+
+    // Disable the cactus button and change the opacity
+    let cactusbtn = document.getElementById("cactusbtn");
+    cactusbtn.disabled = true;
+    cactusbtn.style.opacity = 0.5;
+    cactusbtn.style.cursor = "not-allowed";
+    cactusbtn.innerHTML = "Hai chiamato CACTUS!";
+    
+
+    // Start the last round
+    setOpponentDelay();
+}
+
+/**
+ * Function to check the winner after a cacuts call
+ */
+function checkWinner() {
+    // Check the winner
+    var playerSum = player.reduce((a, b) => a + b, 0);
+    var opponentSum = opponent.reduce((a, b) => a + b, 0);
+
+    // Check the winner
+    if(playerSum < opponentSum) {
+        alert("Hai vinto!");
+    }
+    else if(playerSum > opponentSum) {
+        alert("Hai perso!");
+    }
+    else {
+        alert("Pareggio!");
+    }
 }
 
 /**
