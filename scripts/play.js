@@ -119,7 +119,7 @@ function opponentRound() {
     var card = cards.pop();
 
     // Find the highest card of the opponent
-    var highest = Math.max(opponent[0], opponent[1], opponent[2], opponent[3]);
+    var highest = Math.max(...opponent);
     
     // TODO: Remove before the final version
     console.log("Highest: " + highest + " - Card: " + card);
