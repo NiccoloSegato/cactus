@@ -101,3 +101,19 @@ main {
     font-weight: bold;
     text-align: center;
 }
+
+#btncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+}
+#mainbtn {
+    width: 100%;
+}
+#cactusbtn {
+    margin-top: 10px;
+    display: none;
+    width: 100%;
+}

@@ -18,10 +18,10 @@
 
             <div id="field">
                 <div id="field-top">
-                    <img src="assets/images/card-back.png" alt="Card">
-                    <img src="assets/images/card-back.png" alt="Card">
-                    <img src="assets/images/card-back.png" alt="Card">
-                    <img src="assets/images/card-back.png" alt="Card">
+                    <img src="assets/images/card-back.png" alt="Card" class="opponent-cards" id="opponent-card-1">
+                    <img src="assets/images/card-back.png" alt="Card" class="opponent-cards" id="opponent-card-2">
+                    <img src="assets/images/card-back.png" alt="Card" class="opponent-cards" id="opponent-card-3">
+                    <img src="assets/images/card-back.png" alt="Card" class="opponent-cards" id="opponent-card-4">
                 </div>
                 <div id="field-center">
                     <div id="field-center-left">
@@ -30,7 +30,10 @@
                             <img src="assets/images/card-back.png" alt="Deck">
                         </div>
                     </div>
-                    <button id="mainbtn" class="button-primary">Mostra le carte</button>
+                    <div id="btncontainer">
+                        <button id="mainbtn" class="button-primary">Mostra le carte</button>
+                        <button id="cactusbtn" class="button-secondary">Cactus</button>
+                    </div>
                     <div id="draw" class="card-front"></div>
                 </div>
                 <div id="field-bottom">

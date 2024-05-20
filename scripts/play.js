@@ -71,6 +71,10 @@ function hideTwoCards() {
 function startFirstRound() {
     // Remove the event listener
     button.removeEventListener("click", startFirstRound);
+
+    // Show the Cactus button
+    document.getElementById("cactusbtn").style.display = "block";
+
     // Ask the player the confirmation to hide the cards
     if(confirm("Sei pronto a giocare?")) {
         // Hide the first two cards
@@ -102,6 +106,8 @@ function play() {
 }
 
 function playerRound() {
+    // Show the Cactus button
+    document.getElementById("cactusbtn").style.display = "block";
     // Change the button text
     button.innerHTML = "Pesca";
     // Remove the previous event listener
@@ -199,9 +205,6 @@ function discardInOpponentTurn(event) {
     setTimeout(() => {
         // Check if the card value is the same as the discarded card
         if(player[swapIndex] == document.getElementById("table").innerHTML) {
-            // Discard the card
-            //player.slice(swapIndex, 1);
-
             // Swap the position between the last element and the one I want to pop
             const tmp = player[swapIndex];
             player[swapIndex] = player[player.length - 1];
@@ -242,7 +245,49 @@ function discardInOpponentTurn(event) {
     }, 1000);
 }
 
+function opponentDiscardInPlayerTurn() {
+    // Get the discarded card value
+    let discardedValue = parseInt(document.getElementById("table").innerHTML);
+
+    // TODO: Remove before production
+    console.log("Player discarded " + discardedValue + ". Checking if the opponent has the card..." + opponent.includes(discardedValue));
+
+    // Check if the discarded value from the player is present in the opponent deck
+    if(opponent.includes(discardedValue)) {
+        // Get the index of the discarded value
+        let index = opponent.indexOf(discardedValue);
+
+        // TODO: Remove before production
+        console.log("Opponent has the card at index " + index + ". Discarding the card...");
+        
+        // Swap the position between the last element and the one I want to pop
+        const tmp = opponent[index];
+        opponent[index] = opponent[opponent.length - 1];
+        opponent[opponent.length - 1] = tmp;
+
+        // Discard the card
+        opponent.pop();
+
+        // Remove the card from the opponent's cards
+        document.getElementById("opponent-card-" + (index + 1)).remove();
+
+        // Rename the cards IDs to match the array's length
+        var cards = document.getElementsByClassName("opponent-cards");
+        for(var i = 0; i < cards.length; i++) {
+            cards[i].id = "opponent-card-" + (i + 1);
+        }
+
+        // TODO: Remove before production
+        console.log("Actual opponent's cards: ");
+        for(let i = 0; i < opponent.length; i++) {
+            console.log(opponent[i]);
+        }
+    }
+}
+
 function setOpponentDelay() {
+    // Hide the Cactus button
+    document.getElementById("cactusbtn").style.display = "none";
     // Change the button text
     button.innerHTML = "Turno avversario...";
     // Disable the button and change the opacity
@@ -305,6 +350,9 @@ function discardCard() {
     // Remove the drew card
     document.getElementById("draw").innerHTML = "";
 
+    // Opponent discard algorithm
+    opponentDiscardInPlayerTurn();
+
     // Start the opponent round
     setOpponentDelay();
 }
@@ -345,6 +393,9 @@ function checkSwap(event) {
             cardsToRemove[i].removeEventListener("click", checkSwap);
         }
         document.getElementById("mainbtn").removeEventListener("click", discardCard);
+
+        // Opponent discard algorithm
+        opponentDiscardInPlayerTurn();
 
         // Start the opponent round
         setOpponentDelay();

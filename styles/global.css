@@ -16,7 +16,7 @@ body {
     border-radius: 20px;
     width: fit-content;
     text-decoration: none;
-    border: none;
+    border: 2px solid black;
 	font: inherit;
     cursor: pointer;
 }
@@ -34,4 +34,23 @@ body {
 .button-plain:hover {
     text-decoration: underline;
     width: fit-content;
+}
+
+/* SECONDARY BUTTON */
+.button-secondary {
+    color: black;
+    background-color: transparent;
+    border-radius: 20px;
+    width: fit-content;
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font: inherit;
+    cursor: pointer;
+}
+.button-secondary:hover {
+    color: white;
+    background-color: green;
+    border: 2px solid green;
+    transition: 0.2s;
 }
