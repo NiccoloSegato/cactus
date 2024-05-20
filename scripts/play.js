@@ -187,6 +187,9 @@ function discardInOpponentTurn(event) {
     card = card.charAt(card.length - 1);
     var swapIndex = parseInt(card) - 1;
 
+    // TODO: Remove before production
+    console.log("Player discarded " + player[swapIndex]);
+
     // Show the player selected card
     var card1 = document.getElementById("player-card-" + (swapIndex + 1));
     card1.innerHTML = player[swapIndex];
@@ -197,10 +200,30 @@ function discardInOpponentTurn(event) {
         // Check if the card value is the same as the discarded card
         if(player[swapIndex] == document.getElementById("table").innerHTML) {
             // Discard the card
-            player.slice(swapIndex, 1);
+            //player.slice(swapIndex, 1);
+
+            // Swap the position between the last element and the one I want to pop
+            const tmp = player[swapIndex];
+            player[swapIndex] = player[player.length - 1];
+            player[player.length - 1] = tmp;
+
+            // Discard the card
+            player.pop();
             
             // Remove the discarded card from the player's cards
             card1.remove();
+
+            // Rename the cards IDs to match the array's length
+            var cards = document.getElementsByClassName("player-cards");
+            for(var i = 0; i < cards.length; i++) {
+                cards[i].id = "player-card-" + (i + 1);
+            }
+
+            // TODO: Remove before production
+            console.log("Actual player's cards: ");
+            for(let i = 0; i < player.length; i++) {
+                console.log(player[i]);
+            }
 
             // Start player round
             button.disabled = false;
@@ -276,7 +299,7 @@ function discardCard() {
 
     // Remove the event listener
     button.removeEventListener("click", discardCard);
-    // Add th edrew card value to the table card
+    // Add the drew card value to the table card
     var table = document.getElementById("table");
     table.innerHTML = document.getElementById("draw").innerHTML;
     // Remove the drew card
