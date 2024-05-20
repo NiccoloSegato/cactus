@@ -7,4 +7,4 @@
 Cactus è il gioco di carte per eccellenza. Questo progetto vuole portare il gioco online, con una interfaccia moderna e veloce per il web.
 
 ## Thanks to
-Grazie a Simone per aver portato il gioco al Politecnico di Milano.
+Grazie a Simone Menoni per aver portato il gioco al Politecnico di Milano.
