@@ -44,7 +44,7 @@ function dealCards() {
 }
 
 /**
- * This function will show the first two cards to the plyer
+ * This function will show the first two cards to the player
  */
 function showTwoCards() {
     // Show the first two cards to the player
@@ -493,13 +493,13 @@ function checkWinner() {
 
     // Check the winner
     if(playerSum < opponentSum) {
-        alert("Hai vinto!");
+        location.href = "results.html?r=win&p=" + playerSum + "&o=" + opponentSum;
     }
     else if(playerSum > opponentSum) {
-        alert("Hai perso!");
+        location.href = "results.html?r=lose&p=" + playerSum + "&o=" + opponentSum;
     }
     else {
-        alert("Pareggio!");
+        location.href = "results.html?r=draw&p=" + playerSum + "&o=" + opponentSum;
     }
 }
 
