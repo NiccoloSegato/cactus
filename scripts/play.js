@@ -5,6 +5,9 @@ var cards = [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3
 var player = [];
 var opponent = [];
 
+// Player lifes
+let playerLifes = 3;
+
 // Main button reference
 var button;
 
@@ -82,13 +85,9 @@ function startFirstRound() {
 
     // Show the Cactus button
     document.getElementById("cactusbtn").style.display = "block";
-
-    // Ask the player the confirmation to hide the cards
-    if(confirm("Sei pronto a giocare?")) {
-        // Hide the first two cards
-        hideTwoCards();
-        playerRound();
-    }
+    
+    hideTwoCards();
+    playerRound();
 }
 
 /**
@@ -255,7 +254,14 @@ function discardInOpponentTurn(event) {
             playerRound();
         }
         else {
-            // TODO: Impelement the error in the discard
+            // Remove a player life
+            playerLifes--;
+            document.getElementById("player-lifes").innerHTML = "<i class=\"fa-solid fa-heart\"></i> " + playerLifes;
+
+            // Turn the card back
+            card1.innerHTML = "";
+            card1.style.backgroundImage = "url('assets/images/card-back.png')";
+            
             // Enable the button and change the opacity
             button.disabled = false;
             button.style.opacity = 1;

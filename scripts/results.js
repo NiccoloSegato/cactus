@@ -37,4 +37,44 @@ document.addEventListener("DOMContentLoaded", function() {
         desc.innerHTML = "Non dovresti essere qui!";
         document.getElementById("results").style.display = "none";
     }
+
+    // Save the result in the leaderboard
+    saveResult(result, playerSum, opponentSum);
+    console.log("Result saved!");
 });
+
+function saveResult(result, player, opponent) {
+    // Get the leaderboard from the local storage
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+
+    // If the leaderboard is empty, create a new one
+    if (leaderboard === null) {
+        leaderboard = [];
+    }
+
+    // Get the current date
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    // Create the new result
+    const newResult = {
+        date: `${day}/${month}/${year} ${hours}:${minutes}`,
+        result: result,
+        player: player,
+        opponent: opponent
+    };
+
+    console.log(newResult);
+
+    // Add the new result to the leaderboard
+    leaderboard.push(newResult);
+
+    console.log(leaderboard);
+
+    // Save the leaderboard in the local storage
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
