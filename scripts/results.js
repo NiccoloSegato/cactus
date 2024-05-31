@@ -32,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function() {
         player.innerHTML = playerSum;
         opponent.innerHTML = opponentSum;
     }
+    else if (result === "endlife") {
+        title.innerHTML = "Sconfitta!";
+        desc.innerHTML = "Hai esaurito le vite, attento a quello che scarti!";
+        player.innerHTML = 0;
+        opponent.innerHTML = 0;
+    }
     else {
         title.innerHTML = "Qualcosa non va...";
         desc.innerHTML = "Non dovresti essere qui!";

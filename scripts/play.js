@@ -261,7 +261,13 @@ function discardInOpponentTurn(event) {
             // Turn the card back
             card1.innerHTML = "";
             card1.style.backgroundImage = "url('assets/images/card-back.png')";
-            
+
+            if(playerLifes == 0) {
+                // Player lost
+                endGameIfPlayerLifesAreZero();
+                return;
+            }
+
             // Enable the button and change the opacity
             button.disabled = false;
             button.style.opacity = 1;
@@ -269,6 +275,10 @@ function discardInOpponentTurn(event) {
             playerRound();
         }
     }, 1000);
+}
+
+function endGameIfPlayerLifesAreZero() {
+    location.href = "results.html?r=endlife&p=0&o=0";
 }
 
 function opponentDiscardInPlayerTurn() {
