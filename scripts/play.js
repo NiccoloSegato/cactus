@@ -175,27 +175,28 @@ function opponentRound() {
  * Function executed when the opponent's round is finished. Ask the player if he wants to discard a card on top of the opponent's discarded card
  */
 function askPlayerDiscard() {
-    if(confirm("Vuoi scartare una tua carta?")) {
-        // Apply the action to every card
-        var cardsToRemove = document.getElementsByClassName("player-cards");
-        for(var i = 0; i < cardsToRemove.length; i++) {
-            cardsToRemove[i].addEventListener("click", discardInOpponentTurn);
+    // Ask the player if he wants to discard a card only if the player not called cactus
+    if(!isCactus) {
+        if(confirm("Vuoi scartare una tua carta?")) {
+            // Apply the action to every card
+            var cardsToRemove = document.getElementsByClassName("player-cards");
+            for(var i = 0; i < cardsToRemove.length; i++) {
+                cardsToRemove[i].addEventListener("click", discardInOpponentTurn);
+            }
+        }
+        else {
+            // Enable the button and change the opacity
+            button.disabled = false;
+            button.style.opacity = 1;
+            button.style.cursor = "pointer";
+
+            // Start player round
+            playerRound();
         }
     }
     else {
-        // Enable the button and change the opacity
-        button.disabled = false;
-        button.style.opacity = 1;
-        button.style.cursor = "pointer";
-
-        // Start player round
-        if(isCactus) {
-            checkWinner();
-            return;
-        }
-        else {
-            playerRound();
-        }
+        checkWinner();
+        return;
     }
 }
 
@@ -304,14 +305,22 @@ function opponentDiscardInPlayerTurn() {
         // Discard the card
         opponent.pop();
 
-        // Remove the card from the opponent's cards
-        document.getElementById("opponent-card-" + (index + 1)).remove();
+        // Show the card and add a delay to be visible
+        var card = document.getElementById("opponent-card-" + (index + 1));
+        card.innerHTML = discardedValue;
+        card.style.backgroundImage = "none";
 
-        // Rename the cards IDs to match the array's length
-        var cards = document.getElementsByClassName("opponent-cards");
-        for(var i = 0; i < cards.length; i++) {
-            cards[i].id = "opponent-card-" + (i + 1);
-        }
+        // Wait a second before removing the card
+        setTimeout(() => {
+            // Remove the card from the opponent's cards
+            document.getElementById("opponent-card-" + (index + 1)).remove();
+
+            // Rename the cards IDs to match the array's length
+            var cards = document.getElementsByClassName("opponent-cards");
+            for(var i = 0; i < cards.length; i++) {
+                cards[i].id = "opponent-card-" + (i + 1);
+            }
+        }, 1000);
 
         // TODO: Remove before production
         console.log("Actual opponent's cards: ");
@@ -322,6 +331,9 @@ function opponentDiscardInPlayerTurn() {
 }
 
 function setOpponentDelay() {
+    // Remove button event listener
+    button.removeEventListener("click", setOpponentDelay);
+
     if(!isCactus) {
         // Hide the Cactus button
         document.getElementById("cactusbtn").style.display = "none";
@@ -436,8 +448,9 @@ function checkSwap(event) {
         // Opponent discard algorithm
         opponentDiscardInPlayerTurn();
 
-        // Start the opponent round
-        setOpponentDelay();
+        // Wait for player to choose if call cactus or continue game
+        button.innerHTML = "Concludi turno";
+        button.addEventListener("click", setOpponentDelay);
 
     }, 1000);
 }
@@ -493,10 +506,6 @@ function playerCactus() {
     cactusbtn.style.opacity = 0.5;
     cactusbtn.style.cursor = "not-allowed";
     cactusbtn.innerHTML = "Hai chiamato CACTUS!";
-    
-
-    // Start the last round
-    setOpponentDelay();
 }
 
 /**
