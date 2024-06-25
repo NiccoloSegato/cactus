@@ -71,7 +71,6 @@ main {
     height: 100%;
 }
 #table, #draw {
-    flex: 1 1 auto; /* Allow flex items to grow and shrink */
     height: 141px; /* Set a specific height to ensure consistency */
     width: 100%;
     max-width: 100px;
@@ -112,7 +111,7 @@ main {
 }
 
 .card-front {
-    font-size: 5vw;
+    font-size: max(70px, 5vw);
     font-weight: bold;
     text-align: center;
 }
