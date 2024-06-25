@@ -174,5 +174,8 @@ main {
     #maintitle {
         display: none;
     }
-    
+    #field {
+        margin-top: 20px;
+        height: calc(100vh - 80px);
+    }
 }
