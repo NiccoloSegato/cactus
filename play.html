@@ -18,23 +18,37 @@
 
             <div id="field">
                 <div id="field-top">
-                    <div class="opponent-cards card-front" id="opponent-card-1"></div>
-                    <div class="opponent-cards card-front" id="opponent-card-2"></div>
-                    <div class="opponent-cards card-front" id="opponent-card-3"></div>
-                    <div class="opponent-cards card-front" id="opponent-card-4"></div>
+                    <div class="opponent-cards" id="opponent-card-1">
+                        <div class="card-front opponent-front" id="opponent-front-1"></div>
+                        <div class="card-back"></div>
+                    </div>
+                    <div class="opponent-cards" id="opponent-card-2">
+                        <div class="card-front opponent-front" id="opponent-front-2"></div>
+                        <div class="card-back"></div>
+                    </div>
+                    <div class="opponent-cards" id="opponent-card-3">
+                        <div class="card-front opponent-front" id="opponent-front-3"></div>
+                        <div class="card-back"></div>
+                    </div>
+                    <div class="opponent-cards" id="opponent-card-4">
+                        <div class="card-front opponent-front" id="opponent-front-4"></div>
+                        <div class="card-back"></div>
+                    </div>
                 </div>
-                <div id="field-center">
-                    <div id="field-center-left">
-                        <div id="table" class="card-front"></div>
-                        <div id="deck">
-                            <img src="assets/images/card-back.png" alt="Deck">
+                <div id="centercont">
+                    <div id="field-center">
+                        <div id="field-center-left">
+                            <div id="table" class="card-white"></div>
+                            <div id="deck">
+                                <img src="assets/images/card-back.png" alt="Deck">
+                            </div>
                         </div>
+                        <div id="draw" class="card-white"></div>
                     </div>
                     <div id="btncontainer">
                         <button id="mainbtn" class="button-primary">Mostra le carte</button>
                         <button id="cactusbtn" class="button-secondary" onclick="playerCactus()">Cactus</button>
                     </div>
-                    <div id="draw" class="card-front"></div>
                 </div>
                 <div id="field-bottom-container">
                     <span id="player-hand-title">
@@ -42,10 +56,22 @@
                         <p>La tua mano</p>
                     </span>
                     <div id="field-bottom">
-                        <div class="player-cards card-front" id="player-card-1"></div>
-                        <div class="player-cards card-front" id="player-card-2"></div>
-                        <div class="player-cards card-front" id="player-card-3"></div>
-                        <div class="player-cards card-front" id="player-card-4"></div>
+                        <div class="player-cards" id="player-card-1">
+                            <div class="card-front player-front" id="player-front-1"></div>
+                            <div class="card-back"></div>
+                        </div>
+                        <div class="player-cards" id="player-card-2">
+                            <div class="card-front player-front" id="player-front-2"></div>
+                            <div class="card-back"></div>
+                        </div>
+                        <div class="player-cards" id="player-card-3">
+                            <div class="card-front player-front" id="player-front-3"></div>
+                            <div class="card-back"></div>
+                        </div>
+                        <div class="player-cards" id="player-card-4">
+                            <div class="card-front player-front" id="player-front-4"></div>
+                            <div class="card-back"></div>
+                        </div>
                     </div>
                 </div>
             </div>

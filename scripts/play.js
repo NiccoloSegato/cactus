@@ -52,12 +52,14 @@ function dealCards() {
 function showTwoCards() {
     // Show the first two cards to the player
     var card1 = document.getElementById("player-card-1");
-    card1.innerHTML = player[0];
-    card1.style.backgroundImage = "none";
+    var front1 = document.getElementById("player-front-1");
+    front1.innerHTML = player[0];
+    card1.classList.toggle('flipped');
 
     var card2 = document.getElementById("player-card-2");
-    card2.innerHTML = player[1];
-    card2.style.backgroundImage = "none";
+    var front2 = document.getElementById("player-front-2");
+    front2.innerHTML = player[1];
+    card2.classList.toggle('flipped');
 
     // Change the button text
     button.innerHTML = "Iniziamo!";
@@ -67,12 +69,14 @@ function showTwoCards() {
 function hideTwoCards() {
     // Hide the first two cards to the player
     var card1 = document.getElementById("player-card-1");
-    card1.innerHTML = "";
-    card1.style.backgroundImage = "url('assets/images/card-back.png')";
+    var front1 = document.getElementById("player-front-1");
+    front1.innerHTML = "";
+    card1.classList.toggle('flipped');
 
     var card2 = document.getElementById("player-card-2");
-    card2.innerHTML = "";
-    card2.style.backgroundImage = "url('assets/images/card-back.png')";
+    var front2 = document.getElementById("player-front-2");
+    front2.innerHTML = "";
+    card2.classList.toggle('flipped');
 
 }
 
@@ -218,8 +222,9 @@ function discardInOpponentTurn(event) {
 
     // Show the player selected card
     var card1 = document.getElementById("player-card-" + (swapIndex + 1));
-    card1.innerHTML = player[swapIndex];
-    card1.style.backgroundImage = "none";
+    var front1 = document.getElementById("player-front-" + (swapIndex + 1));
+    front1.innerHTML = player[swapIndex];
+    card1.classList.toggle('flipped');
 
     // Wait a second before checking if discard the card
     setTimeout(() => {
@@ -238,8 +243,10 @@ function discardInOpponentTurn(event) {
 
             // Rename the cards IDs to match the array's length
             var cards = document.getElementsByClassName("player-cards");
+            var fronts = document.getElementsByClassName("player-front");
             for(var i = 0; i < cards.length; i++) {
                 cards[i].id = "player-card-" + (i + 1);
+                fronts[i].id = "player-front-" + (i + 1);
             }
 
             // TODO: Remove before production
@@ -260,8 +267,8 @@ function discardInOpponentTurn(event) {
             document.getElementById("player-lifes").innerHTML = "<i class=\"fa-solid fa-heart\"></i> " + playerLifes;
 
             // Turn the card back
-            card1.innerHTML = "";
-            card1.style.backgroundImage = "url('assets/images/card-back.png')";
+            front1.innerHTML = "";
+            card1.classList.toggle('flipped');
 
             if(playerLifes == 0) {
                 // Player lost
@@ -307,8 +314,9 @@ function opponentDiscardInPlayerTurn() {
 
         // Show the card and add a delay to be visible
         var card = document.getElementById("opponent-card-" + (index + 1));
-        card.innerHTML = discardedValue;
-        card.style.backgroundImage = "none";
+        var front = document.getElementById("opponent-front-" + (index + 1));
+        front.innerHTML = discardedValue;
+        card.classList.toggle('flipped');
 
         // Wait a second before removing the card
         setTimeout(() => {
@@ -317,8 +325,10 @@ function opponentDiscardInPlayerTurn() {
 
             // Rename the cards IDs to match the array's length
             var cards = document.getElementsByClassName("opponent-cards");
+            var front = document.getElementsByClassName("opponent-front");
             for(var i = 0; i < cards.length; i++) {
                 cards[i].id = "opponent-card-" + (i + 1);
+                front[i].id = "opponent-front-" + (i + 1);
             }
         }, 1000);
 
@@ -420,8 +430,9 @@ function checkSwap(event) {
     
     // Show the player card
     var card1 = document.getElementById("player-card-" + (card + 1));
-    card1.innerHTML = player[card];
-    card1.style.backgroundImage = "none";
+    var front1 = document.getElementById("player-front-" + (card + 1));
+    front1.innerHTML = player[card];
+    card1.classList.toggle('flipped');
 
     // Wait one second before swapping the card
     setTimeout(() => {
@@ -429,8 +440,8 @@ function checkSwap(event) {
         // Swap the card
         player[card] = parseInt(drewCard.innerHTML);
         // Hide the card
-        card1.innerHTML = "";
-        card1.style.backgroundImage = "url('assets/images/card-back.png')";
+        front1.innerHTML = "";
+        card1.classList.toggle('flipped');
 
         // Discard the swapped card
         var table = document.getElementById("table");
