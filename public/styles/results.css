@@ -1,0 +1,29 @@
+main {
+    width: 90%;
+    margin: 100px auto;
+}
+#subtitle {
+    color: rgb(205, 164, 140);
+    opacity: 0.8;
+    font-size: calc(25px + 3vw);
+    margin-bottom: 0;
+}
+#title {
+    font-size: calc(25px + 4vw);
+    margin: 0;
+}
+#playbtn {
+    position: fixed;
+    bottom: 100px;
+    left: 5%;
+}
+#results {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+#results p {
+    font-size: calc(25px + 3vw);
+    margin: 40px 0;
+    font-weight: bold;
+}

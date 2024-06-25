@@ -1,0 +1,143 @@
+main {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 700px;
+    padding-top: 40px;
+}
+
+#field {
+    height: calc(100vh - 145px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* TOP SECTION */
+#field-top {
+    width: 100%;
+    height: 33%;
+    max-height: 33%;
+    min-height: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.opponent-cards {
+    background-image: url('../assets/images/card-back.png');
+    background-size: cover;
+    width: 24%;
+    height: 100%;
+    max-height: 141px;
+    max-width: 100px;
+    align-self: flex-start;
+    background-color: white;
+    border-radius: 10px;
+}
+
+/* CENTRAL SECTION */
+#field-center {
+    width: 100%;
+    height: 33%;
+    max-height: 33%;
+    min-height: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+#field-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+#field-center-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: stretch;
+    width: 33%;
+}
+#deck {
+    max-width: 100px;
+    height: 141px;
+    margin-right: 10px;
+    align-content: center;
+}
+#deck img {
+    width: 100%;
+    height: 100%;
+}
+#table, #draw {
+    height: 141px; /* Set a specific height to ensure consistency */
+    width: 100%;
+    max-width: 100px;
+    max-height: 141px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/* BOTTOM SECTION */
+#field-bottom-container {
+    width: 100%;
+    height: 33%;
+    max-height: 33%;
+    min-height: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+#field-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 150px;
+}
+
+.player-cards {
+    background-image: url('../assets/images/card-back.png');
+    background-size: cover;
+    width: 24%;
+    height: 100%;
+    max-height: 141px;
+    max-width: 100px;
+    align-self: flex-end;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.card-front {
+    font-size: max(70px, 5vw);
+    font-weight: bold;
+    text-align: center;
+}
+
+#btncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+}
+#mainbtn {
+    width: 100%;
+}
+#cactusbtn {
+    margin-top: 10px;
+    display: none;
+    width: 100%;
+}
+#player-hand-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+#player-hand-title p {
+    margin: 0;
+}

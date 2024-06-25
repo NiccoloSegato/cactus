@@ -1,0 +1,56 @@
+@font-face {
+    font-family: Montserrat;
+    src: url("../assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
+body {
+    margin: 0;
+    background-color: bisque;
+    font-family: Montserrat, sans-serif;
+}
+
+/* PRIMARY BUTTON */
+.button-primary {
+    color: white;
+    background-color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: fit-content;
+    text-decoration: none;
+    border: 2px solid black;
+	font: inherit;
+    cursor: pointer;
+}
+.button-primary:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s;
+}
+
+/* PLAIN BUTTON */
+.button-plain {
+    color: black;
+    text-decoration: none;
+}
+.button-plain:hover {
+    text-decoration: underline;
+    width: fit-content;
+}
+
+/* SECONDARY BUTTON */
+.button-secondary {
+    color: black;
+    background-color: transparent;
+    border-radius: 20px;
+    width: fit-content;
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font: inherit;
+    cursor: pointer;
+}
+.button-secondary:hover {
+    color: white;
+    background-color: green;
+    border: 2px solid green;
+    transition: 0.2s;
+}
