@@ -14,41 +14,48 @@ document.addEventListener("DOMContentLoaded", function() {
     const playerSum = urlParams.get('p');
     const opponentSum = urlParams.get('o');
 
-    if (result === "win") {
-        title.innerHTML = "Vittoria!";
-        desc.innerHTML = "Complimenti, hai vinto!";
-        player.innerHTML = playerSum;
-        opponent.innerHTML = opponentSum;
-    }
-    else if (result === "lose") {
-        title.innerHTML = "Sconfitta!";
-        desc.innerHTML = "Non disperare, la prossima volta andrà meglio!";
-        player.innerHTML = playerSum;
-        opponent.innerHTML = opponentSum;
-    }
-    else if (result === "draw") {
-        title.innerHTML = "Pareggio!";
-        desc.innerHTML = "Nessuno ha vinto, nessuno ha perso!";
-        player.innerHTML = playerSum;
-        opponent.innerHTML = opponentSum;
-    }
-    else if (result === "endlife") {
-        title.innerHTML = "Sconfitta!";
-        desc.innerHTML = "Hai esaurito le vite, attento a quello che scarti!";
-        player.innerHTML = 0;
-        opponent.innerHTML = 0;
-    }
-    else {
-        title.innerHTML = "Qualcosa non va...";
-        desc.innerHTML = "Non dovresti essere qui!";
-        document.getElementById("results").style.display = "none";
+    switch (result) {
+        case "win":
+            title.innerHTML = "Vittoria!";
+            desc.innerHTML = "Complimenti, hai vinto!";
+            player.innerHTML = playerSum;
+            opponent.innerHTML = opponentSum;
+            break;
+        case "lose":
+            title.innerHTML = "Sconfitta!";
+            desc.innerHTML = "Non disperare, la prossima volta andrà meglio!";
+            player.innerHTML = playerSum;
+            opponent.innerHTML = opponentSum;
+            break;
+        case "draw":
+            title.innerHTML = "Pareggio!";
+            desc.innerHTML = "Nessuno ha vinto, nessuno ha perso!";
+            player.innerHTML = playerSum;
+            opponent.innerHTML = opponentSum;
+            break;
+        case "endlife":
+            title.innerHTML = "Sconfitta!";
+            desc.innerHTML = "Hai esaurito le vite, attento a quello che scarti!";
+            player.innerHTML = 0;
+            opponent.innerHTML = 0;
+            break;
+        default:
+            title.innerHTML = "Qualcosa non va...";
+            desc.innerHTML = "Non dovresti essere qui!";
+            document.getElementById("results").style.display = "none";
+            break;
     }
 
     // Save the result in the leaderboard
     saveResult(result, playerSum, opponentSum);
-    console.log("Result saved!");
 });
 
+/**
+ * Function to save the result in the leaderboard
+ * @param {string} result The result of the match, can be "win", "lose", "draw" or "endlife"
+ * @param {number} player The sum of the player's cards
+ * @param {number} opponent The sum of the opponent's cards
+ */
 function saveResult(result, player, opponent) {
     // Get the leaderboard from the local storage
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
@@ -74,12 +81,8 @@ function saveResult(result, player, opponent) {
         opponent: opponent
     };
 
-    console.log(newResult);
-
     // Add the new result to the leaderboard
     leaderboard.push(newResult);
-
-    console.log(leaderboard);
 
     // Save the leaderboard in the local storage
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard));

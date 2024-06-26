@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get the leaderboard from the local storage
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
 
-    console.log(leaderboard);
-
     // Check if the leaderboard is empty
     if (leaderboard === null) {
         let box = document.createElement("p");
@@ -14,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
         box.innerHTML = "Nessun risultato da mostrare";
 
         document.getElementById("leaderboard-box").appendChild(box);
-
     }
     else {
         // Turn the leaderboard front to back
@@ -48,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // Append the box to the leaderboard box
             document.getElementById("leaderboard-box").appendChild(resbox);
         }
-
 
         // Append the table to the leaderboard box
         document.getElementById("leaderboard-box").appendChild(table);

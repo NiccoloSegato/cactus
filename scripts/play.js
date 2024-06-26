@@ -30,8 +30,6 @@ function shuffle() {
         cards[i] = cards[j];
         cards[j] = temp;
     }
-    // TODO: Remove before the final version
-    console.log(cards);
 }
 
 /**
@@ -42,8 +40,6 @@ function dealCards() {
         player.push(cards.pop());
         opponent.push(cards.pop());
     }
-    // TODO: Remove before the final version
-    console.log(cards);
 }
 
 /**
@@ -66,6 +62,9 @@ function showTwoCards() {
     button.addEventListener("click", startFirstRound);
 }
 
+/**
+ * Function called after the user pressed "Iniziamo!" button and flip the cards
+ */
 function hideTwoCards() {
     // Hide the first two cards to the player
     var card1 = document.getElementById("player-card-1");
@@ -95,11 +94,9 @@ function startFirstRound() {
 }
 
 /**
- * This function will play the game
+ * This function will start the game
  */
 function play() {
-    // TODO: Remove before the final version
-    console.log(cards);
     // Remove the event listener
     button.removeEventListener("click", play);
     
@@ -111,11 +108,11 @@ function play() {
 
     // Show the first two cards to the player
     showTwoCards();
-
-    console.log("Player: " + player);
-    console.log("Opponent: " + opponent);
 }
 
+/**
+ * Function to start the player round
+ */
 function playerRound() {
     // Show the Cactus button
     document.getElementById("cactusbtn").style.display = "block";
@@ -125,6 +122,9 @@ function playerRound() {
     button.addEventListener("click", drawCard);
 }
 
+/**
+ * Function to start the opponent round
+ */
 function opponentRound() {
     // Draw a card from the deck
     var card = cards.pop();
@@ -132,8 +132,6 @@ function opponentRound() {
     // Find the highest card of the opponent
     var highest = Math.max(...opponent);
     
-    // TODO: Remove before the final version
-    console.log("Highest: " + highest + " - Card: " + card);
     // Check if the drew card is higher than the highest card
     if(card < highest) {
         // Swap the card with the highest card
@@ -150,16 +148,10 @@ function opponentRound() {
         setTimeout(() => {
             askPlayerDiscard();
         }, 1000);
-
-        // TODO: Remove before the final version
-        console.log("Opponent swapped " + highest + " with " + card);
     } else {
         // Discard the card
         var table = document.getElementById("table");
         table.innerHTML = card;
-
-        // TODO: Remove before the final version
-        console.log("Opponent not swapped and discarded " + card);
 
         // Check if the opponent has a good chance to win
         opponentCactusCallCheck();
@@ -168,11 +160,6 @@ function opponentRound() {
             askPlayerDiscard();
         }, 1000);
     }
-
-    // TODO: Implement the check for win
-    
-    // TODO: Remove before the final version
-    console.log(opponent);
 }
 
 /**
@@ -204,6 +191,10 @@ function askPlayerDiscard() {
     }
 }
 
+/**
+ * This function ask the player to discard a card in the opponent's turn
+ * @param {Element} event The card clicked by the player
+ */
 function discardInOpponentTurn(event) {
     // Remove the event listener from all the cards
     var cardsToRemove = document.getElementsByClassName("player-cards");
@@ -216,9 +207,6 @@ function discardInOpponentTurn(event) {
     // Get last character
     card = card.charAt(card.length - 1);
     var swapIndex = parseInt(card) - 1;
-
-    // TODO: Remove before production
-    console.log("Player discarded " + player[swapIndex]);
 
     // Show the player selected card
     var card1 = document.getElementById("player-card-" + (swapIndex + 1));
@@ -247,12 +235,6 @@ function discardInOpponentTurn(event) {
             for(var i = 0; i < cards.length; i++) {
                 cards[i].id = "player-card-" + (i + 1);
                 fronts[i].id = "player-front-" + (i + 1);
-            }
-
-            // TODO: Remove before production
-            console.log("Actual player's cards: ");
-            for(let i = 0; i < player.length; i++) {
-                console.log(player[i]);
             }
 
             // Start player round
@@ -285,24 +267,24 @@ function discardInOpponentTurn(event) {
     }, 1000);
 }
 
+/**
+ * Function to end the game if the player has no more lifes
+ */
 function endGameIfPlayerLifesAreZero() {
     location.href = "results.html?r=endlife&p=0&o=0";
 }
 
+/**
+ * Function to check if the opponent has the card that the player discarded, and discard it
+ */
 function opponentDiscardInPlayerTurn() {
     // Get the discarded card value
     let discardedValue = parseInt(document.getElementById("table").innerHTML);
-
-    // TODO: Remove before production
-    console.log("Player discarded " + discardedValue + ". Checking if the opponent has the card..." + opponent.includes(discardedValue));
 
     // Check if the discarded value from the player is present in the opponent deck
     if(opponent.includes(discardedValue)) {
         // Get the index of the discarded value
         let index = opponent.indexOf(discardedValue);
-
-        // TODO: Remove before production
-        console.log("Opponent has the card at index " + index + ". Discarding the card...");
         
         // Swap the position between the last element and the one I want to pop
         const tmp = opponent[index];
@@ -331,15 +313,12 @@ function opponentDiscardInPlayerTurn() {
                 front[i].id = "opponent-front-" + (i + 1);
             }
         }, 1000);
-
-        // TODO: Remove before production
-        console.log("Actual opponent's cards: ");
-        for(let i = 0; i < opponent.length; i++) {
-            console.log(opponent[i]);
-        }
     }
 }
 
+/**
+ * Function to set the delay for the opponent round
+ */
 function setOpponentDelay() {
     // Remove button event listener
     button.removeEventListener("click", setOpponentDelay);
@@ -362,15 +341,14 @@ function setOpponentDelay() {
     }, 2000);
 }
 
+/**
+ * Function to draw a card from the deck
+ */
 function drawCard() {
     // Remove the event listener
     button.removeEventListener("click", drawCard);
-    // TODO: Remove before the final version
-    console.log(cards);
     // Pick a card from the deck
     var card = cards.pop();
-    // TODO: Remove before the final version
-    console.log(cards);
     // Visualize the card in the p inside the div "draw"
     var draw = document.getElementById("draw");
     draw.innerHTML = card;
@@ -400,9 +378,6 @@ function discardCard() {
         cardsToRemove[i].removeEventListener("click", checkSwap);
     }
 
-    // TODO: Remove before the final version
-    console.log(cards);
-
     // Remove the event listener
     button.removeEventListener("click", discardCard);
     // Add the drew card value to the table card
@@ -420,7 +395,7 @@ function discardCard() {
 
 /**
  * Function to check which option the player choose
- * @param {*} event 
+ * @param {Element} event The card the player clicked
  */
 function checkSwap(event) {
     // Get the card
@@ -476,9 +451,6 @@ function opponentCactusCallCheck() {
 
     // Check the opponent's cards
     var opponentSum = opponent.reduce((a, b) => a + b, 0);
-
-    // TODO: Remove before production
-    console.log("Random number: " + random + " - Opponent sum: " + opponentSum);
 
     // If the opponent's sum is lower than the random number, call the cactus function
     if(opponentSum < random) {
